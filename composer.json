@@ -1,0 +1,56 @@
+{
+    "name": "goedemiddag/laravel-recaptcha",
+    "description": "A simple and easy to use Google ReCaptcha v3 package for Laravel",
+    "keywords": [
+        "captcha",
+        "recaptcha",
+        "laravel",
+        "php"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dick van der Heiden",
+            "email": "dick@goedemiddag.nl",
+            "role": "Developer"
+        },
+        {
+            "name": "Dominique Mastenbroek",
+            "email": "dominique@goedemiddag.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "google/recaptcha": "^1.3",
+        "laravel/framework": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.16",
+        "phpstan/phpstan": "^1.11",
+        "orchestra/testbench": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Goedemiddag\\ReCaptcha\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Goedemiddag\\ReCaptcha\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "pint:fix": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Goedemiddag\\ReCaptcha\\RecaptchaServiceProvider"
+            ]
+        }
+    }
+}
