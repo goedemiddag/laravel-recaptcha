@@ -43,8 +43,10 @@
     },
     "scripts": {
         "pint:fix": "vendor/bin/pint",
+        "pint:check": "vendor/bin/pint --test",
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "test:no-coverage": "vendor/bin/phpunit --no-coverage"
     },
     "extra": {
         "laravel": {

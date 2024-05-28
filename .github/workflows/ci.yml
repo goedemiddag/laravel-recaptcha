@@ -1,0 +1,74 @@
+name: ReCaptcha package CI
+
+on: [ push ]
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ '8.2', '8.3' ]
+
+    name: Static analysis PHP ${{ matrix.php-versions }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl
+
+      - name: Install Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress
+
+      - name: Execute static analysis
+        run: |
+          composer analyse
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ '8.2', '8.3' ]
+
+    name: Tests PHP ${{ matrix.php-versions }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl
+
+      - name: Install Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress
+
+      - name: Execute tests via PHPUnit
+        run: composer test:no-coverage
+
+  style-pint:
+    runs-on: ubuntu-latest
+    name: Code style - Pint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl
+
+      - name: Install Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress
+
+      - name: Check code standards
+        run: |
+          composer pint:check
