@@ -18,10 +18,12 @@ RECAPTCHA_SECRET_KEY=YOUR_SECRET_KEY
 RECAPTCHA_THRESHOLD=0.3
 ```
 
+### Config
+
 You can optionally publish the config file:
 
 ```bash
-php artisan vendor:publish --provider="Goedemiddag\ReCaptcha\ReCaptchaServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Goedemiddag\ReCaptcha\ReCaptchaServiceProvider" --tag="recaptcha-config"
 ```
 
 This is the contents of the published config file:
@@ -29,22 +31,35 @@ This is the contents of the published config file:
 ```php
 return [
     'site_key' => env('RECAPTCHA_SITE_KEY'),
-
     'secret_key' => env('RECAPTCHA_SECRET_KEY'),
 
+    // The threshold to pass the recaptcha validation, from 0 (easiest) to 1 (hardest)
     'threshold' => env('RECAPTCHA_THRESHOLD', 0.3),
 
+    // Provide IP addresses that shouldn't be validated
     'skip_ips' => [
         // 127.0.0.1
     ],
 ];
 ```
 
+### Translations
+
+This package offers Dutch and English translations by default. You can optionally publish the translations:
+
+```bash
+php artisan vendor:publish --provider="Goedemiddag\ReCaptcha\ReCaptchaServiceProvider" --tag="recaptcha-lang"
+```
+
 ## Usage
+
+This package aims to provide the Google ReCaptcha v3 validation in the backend of your application and offers some tools to use it in the frontend.
+
+### Quick start
 
 Add the `<x-recaptcha::input />` blade component to your form:
 
-```blade
+```bladehtml
 <form method="POST">
     @csrf
     <x-recaptcha::input />
@@ -57,7 +72,7 @@ Add the `<x-recaptcha::input />` blade component to your form:
 
 Add the `<x-recaptcha::script />` blade component to your end of your layout:
 
-```blade
+```bladehtml
 <body>
     ...page content...
 
@@ -65,7 +80,7 @@ Add the `<x-recaptcha::script />` blade component to your end of your layout:
 </body>
 ```
 
-Bind an event listener to the form submit event:
+Bind an event listener to the form submit event, please adjust this for your application:
 
 ```js
 document.querySelector('form').addEventListener('submit', function (event) {
@@ -91,3 +106,9 @@ public function rules(): array
     ];
 }
 ```
+
+## Contributing
+
+Found a bug or want to add a new feature? Great! There are also many other ways to make meaningful contributions such as reviewing outstanding pull requests and writing documentation. Even opening an issue for a bug you found is appreciated.
+
+When you create a pull request, make sure it is tested, following the code standard (run `composer pint:fix` to take care of that for you) and please create one pull request per feature. In exchange, you will be credited as contributor.
