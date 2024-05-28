@@ -51,7 +51,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Goedemiddag\\ReCaptcha\\RecaptchaServiceProvider"
+                "Goedemiddag\\ReCaptcha\\ReCaptchaServiceProvider"
             ]
         }
     }
