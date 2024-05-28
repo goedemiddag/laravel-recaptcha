@@ -106,3 +106,9 @@ public function rules(): array
     ];
 }
 ```
+
+## Contributing
+
+Found a bug or want to add a new feature? Great! There are also many other ways to make meaningful contributions such as reviewing outstanding pull requests and writing documentation. Even opening an issue for a bug you found is appreciated.
+
+When you create a pull request, make sure it is tested, following the code standard (run `composer pint:fix` to take care of that for you) and please create one pull request per feature. In exchange, you will be credited as contributor.
