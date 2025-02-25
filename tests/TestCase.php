@@ -20,7 +20,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    protected function mockGoogleReCaptcha(bool $isSuccessful = true, $score = 0.9): MockInterface
+    protected function mockGoogleReCaptcha(bool $isSuccessful = true, float $score = 0.9): MockInterface
     {
         return $this->mock(ReCaptcha::class, function ($mock) use ($isSuccessful, $score) {
             $mock->shouldReceive('verify')

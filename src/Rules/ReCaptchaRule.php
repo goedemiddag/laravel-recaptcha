@@ -11,8 +11,7 @@ class ReCaptchaRule implements ValidationRule
 {
     public function __construct(
         public ?string $action = null,
-    ) {
-    }
+    ) {}
 
     public function passes(string $attribute, mixed $value): bool
     {
