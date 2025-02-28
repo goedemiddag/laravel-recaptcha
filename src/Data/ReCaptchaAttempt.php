@@ -8,8 +8,7 @@ class ReCaptchaAttempt
         public string $response,
         public ?string $remoteIp = null,
         public ?string $action = null,
-    ) {
-    }
+    ) {}
 
     public function hasAction(): bool
     {

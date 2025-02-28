@@ -11,8 +11,7 @@ class ReCaptchaService
 {
     public function __construct(
         private readonly ReCaptcha $recaptcha,
-    ) {
-    }
+    ) {}
 
     public function getRecaptchaResponse(ReCaptchaAttempt $attempt): Response
     {

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\Before;
 class ReCaptchaVerifyTest extends TestCase
 {
     #[Before]
-    public function setup(): void
+    protected function setup(): void
     {
         parent::setUp();
 
@@ -67,7 +67,7 @@ class ReCaptchaVerifyTest extends TestCase
     {
         $this->mockGoogleReCaptcha(false);
 
-        $rule = new ReCaptchaRule();
+        $rule = new ReCaptchaRule;
 
         $passed = true;
         $fail = function () use (&$passed) {
@@ -83,7 +83,7 @@ class ReCaptchaVerifyTest extends TestCase
     {
         $this->mockGoogleReCaptcha();
 
-        $rule = new ReCaptchaRule();
+        $rule = new ReCaptchaRule;
 
         $passed = true;
         $fail = function () use (&$passed) {

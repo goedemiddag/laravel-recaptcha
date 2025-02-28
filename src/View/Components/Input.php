@@ -10,8 +10,7 @@ class Input extends Component
     public function __construct(
         public string $name = 'g-recaptcha-response',
         public ?string $id = null,
-    ) {
-    }
+    ) {}
 
     public function render(): HtmlString
     {
