@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4' ]
+        php-versions: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
 
     name: Static analysis PHP ${{ matrix.php-versions }}
 
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4' ]
+        php-versions: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
 
     name: Tests PHP ${{ matrix.php-versions }}
 
@@ -63,7 +63,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.5'
           extensions: mbstring, intl
 
       - name: Install Dependencies
