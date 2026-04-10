@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4' ]
+        php-versions: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
 
     name: Static analysis PHP ${{ matrix.php-versions }}
 
@@ -29,12 +29,32 @@ jobs:
           composer analyse
 
   test:
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
-        php-versions: [ '8.1', '8.2', '8.3', '8.4' ]
-
-    name: Tests PHP ${{ matrix.php-versions }}
+        php: [ 8.1, 8.2, 8.3, 8.4 ]
+        laravel: [ ^10.0, ^11.0, ^12.0, ^13.0 ]
+        stability: [ prefer-stable, prefer-lowest ]
+        include:
+          - laravel: ^10.0
+            testbench: ^8.0
+          - laravel: ^11.0
+            testbench: ^9.0
+          - laravel: ^12.0
+            testbench: ^10.0
+          - laravel: ^13.0
+            testbench: ^11.0
+        exclude:
+          - php: 8.1
+            laravel: ^11.0
+          - php: 8.1
+            laravel: ^12.0
+          - php: 8.1
+            laravel: ^13.0
+          - php: 8.2
+            laravel: ^13.0
 
     steps:
       - name: Checkout
@@ -43,11 +63,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php }}
           extensions: mbstring, intl
 
-      - name: Install Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests via PHPUnit
         run: composer test:no-coverage
@@ -63,7 +85,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.5'
           extensions: mbstring, intl
 
       - name: Install Dependencies
